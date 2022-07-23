@@ -1,6 +1,7 @@
 package com.fleamarket.demo.controller;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fleamarket.demo.model.dto.ResultResponseDto;
 import com.fleamarket.demo.model.dto.UserDto;
 import com.fleamarket.demo.service.UserService;
@@ -28,16 +29,16 @@ public class UserController {
 
     //아이디 중복 확인
     @PostMapping("/user/join/username")
-    public ResponseEntity<Map<String, String>> duplicateUsername(@RequestBody String username) {
-        HashMap<String, String> map = userService.duplicateUsername(username);
-        return ResponseEntity.ok().body(map);
+    public ResponseEntity<Map<String, String>> duplicateUsername(@RequestBody String username) throws JsonProcessingException {
+        Map<String, String> stringMap = userService.duplicateUsername(username);
+        return ResponseEntity.ok().body(stringMap);
     }
 
     //닉네임 중복 확인
     @PostMapping("/user/join/nickname")
-    public ResultResponseDto duplicateNickname(@RequestBody String nickname) {
-        return userService.duplicatecNickname(nickname);
+    public ResponseEntity<Map<String, String>> duplicateNickname(@RequestBody String nickname) throws JsonProcessingException {
+        Map<String, String> stringMap = userService.duplicatecNickname(nickname);
+        return ResponseEntity.ok().body(stringMap);
     }
-
 }
 

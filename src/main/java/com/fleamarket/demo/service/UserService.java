@@ -1,6 +1,8 @@
 package com.fleamarket.demo.service;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fleamarket.demo.model.User;
 import com.fleamarket.demo.model.dto.ResultResponseDto;
 import com.fleamarket.demo.model.dto.UserDto;
@@ -11,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.Map;
 
 
 @RequiredArgsConstructor
@@ -46,22 +49,22 @@ public class UserService {
 
     }
 
-    public HashMap<String, String> duplicateUsername(String username) {
+    public HashMap<String, String> duplicateUsername(String username) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
         boolean isusername = userRepository.existsByUsername(username);
         if(isusername){
             throw new IllegalArgumentException("아이디가 존재합니다.");
         }
-        HashMap<String, String> map = new HashMap<>();
-        map.put("username", username);
-        return map;
+        return (HashMap<String, String>) mapper.readValue(username, Map.class);
     }
 
-    public ResultResponseDto duplicatecNickname(String nickname) {
+    public HashMap<String, String> duplicatecNickname(String nickname) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
         boolean isnickname = userRepository.existsByNickname(nickname);
         if(isnickname){
             throw new IllegalArgumentException("닉네임이 존재합니다.");
         }
-        return new ResultResponseDto(nickname);
+        return (HashMap<String, String>) mapper.readValue(nickname, Map.class);
     }
 
 
