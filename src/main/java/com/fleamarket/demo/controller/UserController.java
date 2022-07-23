@@ -17,8 +17,9 @@ public class UserController {
 
     //회원가입
     @PostMapping("/user/join")
-    public void registerUser(@RequestBody UserDto requestDto) {
+    public ResultResponseDto registerUser(@RequestBody UserDto requestDto) {
         userService.registerUser(requestDto);
+        return new ResultResponseDto(true);
     }
 
     //아이디 중복 확인
