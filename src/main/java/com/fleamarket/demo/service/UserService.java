@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+
 
 @RequiredArgsConstructor
 @Service
@@ -44,15 +46,14 @@ public class UserService {
 
     }
 
-    public ResultResponseDto duplicateUsername(String username) {
+    public HashMap<String, String> duplicateUsername(String username) {
         boolean isusername = userRepository.existsByUsername(username);
         if(isusername){
             throw new IllegalArgumentException("아이디가 존재합니다.");
         }
-        ResultResponseDto dto = new ResultResponseDto(username);
-        String result = dto.getResult();
-        System.out.println("result = " + result);
-        return new ResultResponseDto(username);
+        HashMap<String, String> map = new HashMap<>();
+        map.put("username", username);
+        return map;
     }
 
     public ResultResponseDto duplicatecNickname(String nickname) {
