@@ -1,5 +1,9 @@
 package com.fleamarket.demo.service;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/sky
 import com.fleamarket.demo.model.User;
 import com.fleamarket.demo.model.dto.ResultResponseDto;
 import com.fleamarket.demo.model.dto.UserDto;
@@ -9,8 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> origin/sky
 @RequiredArgsConstructor
 @Service
 public class UserService {

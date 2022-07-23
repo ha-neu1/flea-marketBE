@@ -1,6 +1,9 @@
 package com.fleamarket.demo.controller;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/sky
 import com.fleamarket.demo.model.dto.ResultResponseDto;
 import com.fleamarket.demo.model.dto.UserDto;
 import com.fleamarket.demo.service.UserService;
@@ -33,6 +36,10 @@ public class UserController {
     public ResultResponseDto duplicateNickname(@PathVariable("nickname") String nickname) {
         return userService.duplicatecNickname(nickname);
     }
+<<<<<<< HEAD
 }
 
 
+=======
+}
+>>>>>>> origin/sky

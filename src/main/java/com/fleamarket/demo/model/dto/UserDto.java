@@ -13,4 +13,5 @@ public class UserDto {
     public String pw;
     public String nickname;
     public String city;
+
 }
