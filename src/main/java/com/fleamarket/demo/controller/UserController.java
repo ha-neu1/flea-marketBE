@@ -1,5 +1,6 @@
 package com.fleamarket.demo.controller;
 
+import com.fleamarket.demo.model.dto.ResultResponseDto;
 import com.fleamarket.demo.model.dto.UserDto;
 import com.fleamarket.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -23,17 +24,12 @@ public class UserController {
     //아이디 중복 확인
     @PostMapping("/user/join/username")
     public ResultResponseDto duplicateUsername(@PathVariable("username") String username) {
-        System.out.println("idCheck input username : "+username);
-        System.out.println("idCheck result : " + userService.duplicateUsername(username).isResult());
-        System.out.println("idCheck result reverse : " + userService.duplicateUsername(username));
         return userService.duplicateUsername(username);
     }
 
     //닉네임 중복 확인
     @PostMapping("/user/join/nickname")
     public ResultResponseDto duplicateNickname(@PathVariable("nickname") String nickname) {
-        System.out.println("nicknameCheck input nickname : " + nickname);
-        System.out.println("nicknameCheck result : " + userService.duplicatecNickname(nickname).isResult());
         return userService.duplicatecNickname(nickname);
     }
 }

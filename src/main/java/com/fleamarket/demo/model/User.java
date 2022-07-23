@@ -41,4 +41,5 @@ public class User {
         this.nickname = userDto.getNickname();
         this.city = userDto.getCity();
     }
+
 }
