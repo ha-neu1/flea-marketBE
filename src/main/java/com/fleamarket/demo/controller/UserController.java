@@ -1,8 +1,6 @@
 package com.fleamarket.demo.controller;
 
 
-import com.fleamarket.demo.jwt.JwtTokenProvider;
-import com.fleamarket.demo.model.dto.LoginRequestDto;
 import com.fleamarket.demo.model.dto.ResultResponseDto;
 import com.fleamarket.demo.model.dto.UserDto;
 import com.fleamarket.demo.service.UserService;
