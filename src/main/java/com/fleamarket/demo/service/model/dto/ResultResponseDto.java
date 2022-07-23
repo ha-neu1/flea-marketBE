@@ -1,9 +1,6 @@
-package com.fleamarket.demo.model.dto;
+package com.fleamarket.demo.service.model.dto;
 
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/sky
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,9 +9,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class ResultResponseDto {
-    private boolean result;
-<<<<<<< HEAD
+
+    private String  result;
 }
-=======
-}
->>>>>>> origin/sky
