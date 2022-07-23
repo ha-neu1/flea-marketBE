@@ -1,9 +1,9 @@
 package com.fleamarket.demo.service;
 
 
-import com.fleamarket.demo.service.model.User;
-import com.fleamarket.demo.service.model.dto.ResultResponseDto;
-import com.fleamarket.demo.service.model.dto.UserDto;
+import com.fleamarket.demo.model.User;
+import com.fleamarket.demo.model.dto.ResultResponseDto;
+import com.fleamarket.demo.model.dto.UserDto;
 import com.fleamarket.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,8 @@
 package com.fleamarket.demo.controller;
 
 
-import com.fleamarket.demo.service.model.dto.ResultResponseDto;
-import com.fleamarket.demo.service.model.dto.UserDto;
+import com.fleamarket.demo.model.dto.ResultResponseDto;
+import com.fleamarket.demo.model.dto.UserDto;
 import com.fleamarket.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.xml.ws.Response;
 import java.util.HashMap;
 import java.util.Map;
 

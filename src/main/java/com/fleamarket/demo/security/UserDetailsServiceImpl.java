@@ -4,7 +4,7 @@ package com.fleamarket.demo.security;//
 //
 
 
-import com.fleamarket.demo.service.model.User;
+import com.fleamarket.demo.model.User;
 import com.fleamarket.demo.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;

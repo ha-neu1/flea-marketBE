@@ -6,7 +6,7 @@ package com.fleamarket.demo.security;//
 import java.util.Collection;
 import java.util.Collections;
 
-import com.fleamarket.demo.service.model.User;
+import com.fleamarket.demo.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

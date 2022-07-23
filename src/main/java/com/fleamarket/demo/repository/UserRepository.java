@@ -1,6 +1,6 @@
 package com.fleamarket.demo.repository;
 
-import com.fleamarket.demo.service.model.User;
+import com.fleamarket.demo.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

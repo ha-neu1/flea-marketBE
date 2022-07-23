@@ -1,4 +1,4 @@
-package com.fleamarket.demo.service.model.dto;
+package com.fleamarket.demo.model.dto;
 
 
 import lombok.AllArgsConstructor;
