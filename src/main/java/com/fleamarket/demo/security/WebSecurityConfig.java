@@ -20,51 +20,34 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
         securedEnabled = true
 )
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private final JwtTokenProvider jwtTokenProvider;
-
     @Bean
     public BCryptPasswordEncoder encodePassword() {
         return new BCryptPasswordEncoder();
     }
-
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
-    public void configure(WebSecurity web) {
+    @Override
+    public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
                 .antMatchers("/h2-console/**")
                 .antMatchers("/**");
     }
 
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-        http
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http
-                .addFilterBefore(new JwtAuthenticationFilter(this.jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
-
         http.csrf().disable()
                 .authorizeRequests()
                 //요청을 오직 유저가 해야함
 //                .antMatchers("/api/comment/**").authenticated()
-                // /about 요청에 대해서는 로그인을 요구함
-//                .antMatchers("/api/comment/**").authenticated()
-                // /admin 요청에 대해서는 ROLE_ADMIN 역할을 가지고 있어야 함
-//                .antMatchers("/api/comment/**").hasRole("USER")
-                // 나머지 요청에 대해서는 로그인을 요구하지 않음
-                .anyRequest().permitAll()
-                .and()
-                // [로그아웃 기능]
-                .logout()
-                // 로그아웃 요청 처리 URL
-                .logoutUrl("/user/logout")
-                .permitAll();
-    }
-    public WebSecurityConfig(JwtTokenProvider jwtTokenProvider) {
-        this.jwtTokenProvider = jwtTokenProvider;
+//                // /about 요청에 대해서는 로그인을 요구함
+////                .antMatchers("/api/comment/**").authenticated()
+//                // /admin 요청에 대해서는 ROLE_ADMIN 역할을 가지고 있어야 함
+////                .antMatchers("/api/comment/**").hasRole("USER")
+//                // 나머지 요청에 대해서는 로그인을 요구하지 않음
+                .anyRequest().permitAll();
     }
 }
