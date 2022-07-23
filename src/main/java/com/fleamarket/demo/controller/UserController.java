@@ -1,7 +1,6 @@
 package com.fleamarket.demo.controller;
 
 import com.fleamarket.demo.model.dto.UserDto;
-import com.fleamarket.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
