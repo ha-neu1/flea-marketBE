@@ -1,7 +1,9 @@
 package com.fleamarket.demo.controller;
 
 import com.fleamarket.demo.model.dto.UserDto;
+import com.fleamarket.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,33 +14,26 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/user/join/username")
-    public String registerUsername(@RequestBody UserDto userDto) {
-        String reu = UserService.registerUsername(userDto);
-        if (reu.equals("")) {
-            return "유저 이름 확인";
-        } else {
-            return reu;
-        }
-    }
-
-    @PostMapping("/user/join/nickname")
-    public String registerNickname(@RequestBody UserDto userDto) {
-        String ren = UserService.registerNickname(userDto);
-        if (ren.equals("")) {
-            return "닉네임 확인";
-        } else {
-            return ren;
-        }
-    }
-
+    //회원가입
     @PostMapping("/user/join")
-    public String registerUser(@Valid @RequestBody UserDto requestDto) {
-        String res = UserService.registerUser(requestDto);
-        if (res.equals("")) {
-            return "회원가입 성공";
-        } else {
-            return res;
-        }
+    public void registerUser(@RequestBody UserDto requestDto) {
+        userService.registerUser(requestDto);
+    }
+
+    //아이디 중복 확인
+    @PostMapping("/user/join/username")
+    public ResultResponseDto duplicateUsername(@PathVariable("username") String username) {
+        System.out.println("idCheck input username : "+username);
+        System.out.println("idCheck result : " + userService.duplicateUsername(username).isResult());
+        System.out.println("idCheck result reverse : " + userService.duplicateUsername(username));
+        return userService.duplicateUsername(username);
+    }
+
+    //닉네임 중복 확인
+    @PostMapping("/user/join/nickname")
+    public ResultResponseDto duplicateNickname(@PathVariable("nickname") String nickname) {
+        System.out.println("nicknameCheck input nickname : " + nickname);
+        System.out.println("nicknameCheck result : " + userService.duplicatecNickname(nickname).isResult());
+        return userService.duplicatecNickname(nickname);
     }
 }
