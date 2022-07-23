@@ -1,7 +1,6 @@
 package com.fleamarket.demo.model;
 
 import com.fleamarket.demo.model.dto.UserDto;
-import com.fleamarket.demo.model.Item;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

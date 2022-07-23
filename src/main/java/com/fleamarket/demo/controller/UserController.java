@@ -1,5 +1,9 @@
 package com.fleamarket.demo.controller;
 
+<<<<<<<<< Temporary merge branch 1
+=========
+
+>>>>>>>>> Temporary merge branch 2
 import com.fleamarket.demo.model.dto.ResultResponseDto;
 import com.fleamarket.demo.model.dto.UserDto;
 import com.fleamarket.demo.service.UserService;
@@ -17,9 +21,8 @@ public class UserController {
 
     //회원가입
     @PostMapping("/user/join")
-    public ResultResponseDto registerUser(@RequestBody UserDto requestDto) {
+    public void registerUser(@RequestBody UserDto requestDto) {
         userService.registerUser(requestDto);
-        return new ResultResponseDto(true);
     }
 
     //아이디 중복 확인
@@ -33,4 +36,10 @@ public class UserController {
     public ResultResponseDto duplicateNickname(@PathVariable("nickname") String nickname) {
         return userService.duplicatecNickname(nickname);
     }
+<<<<<<<<< Temporary merge branch 1
 }
+=========
+}
+
+
+>>>>>>>>> Temporary merge branch 2

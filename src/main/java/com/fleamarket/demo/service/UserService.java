@@ -1,6 +1,9 @@
 package com.fleamarket.demo.service;
 
+<<<<<<<<< Temporary merge branch 1
 
+=========
+>>>>>>>>> Temporary merge branch 2
 import com.fleamarket.demo.model.User;
 import com.fleamarket.demo.model.dto.ResultResponseDto;
 import com.fleamarket.demo.model.dto.UserDto;
@@ -10,6 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+<<<<<<<<< Temporary merge branch 1
+=========
+
+
+>>>>>>>>> Temporary merge branch 2
 @RequiredArgsConstructor
 @Service
 public class UserService {
