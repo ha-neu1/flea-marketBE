@@ -22,7 +22,7 @@ public class UserController {
     public String login(@RequestBody LoginRequestDto loginRequestDto) {
         if (this.userService.login(loginRequestDto)) {
             String token = this.jwtTokenProvider.createToken(loginRequestDto.getUsername());
-            System.out.println(token);
+            System.out.println("token = " + token);
             return token;
         } else {
             return "닉네임 또는 패스워드를 확인해주세요";
