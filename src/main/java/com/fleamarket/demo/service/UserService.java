@@ -4,6 +4,7 @@ package com.fleamarket.demo.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fleamarket.demo.model.User;
+import com.fleamarket.demo.model.dto.LoginRequestDto;
 import com.fleamarket.demo.model.dto.ResultResponseDto;
 import com.fleamarket.demo.model.dto.UserDto;
 import com.fleamarket.demo.repository.UserRepository;
@@ -24,6 +25,7 @@ import java.util.Map;
 public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+
 
     @Autowired
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
@@ -75,5 +77,16 @@ public class UserService {
                 .orElseThrow(() -> new IllegalArgumentException("내 정보가 없습니다."));
         return new UserDto(user.getUsername(), user.getNickname(), user.getPw(), user.getCity());
     }
-
+    public Boolean login(LoginRequestDto loginRequestDto){
+        User user = userRepository.findByUsername(loginRequestDto.getUsername())
+                .orElse(null);
+        if (user != null) {
+            if (!passwordEncoder.matches(loginRequestDto.getPw(), user.getPw())) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+        return true;
+    }
 }
