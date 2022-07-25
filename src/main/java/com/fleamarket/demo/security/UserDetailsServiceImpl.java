@@ -6,7 +6,7 @@ package com.fleamarket.demo.security;//
 
 import com.fleamarket.demo.model.User;
 import com.fleamarket.demo.repository.UserRepository;
-import com.fleamarket.demo.security.UserDetailsImpl;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
