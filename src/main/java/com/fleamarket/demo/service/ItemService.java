@@ -8,12 +8,13 @@ import com.fleamarket.demo.repository.ItemRepository;
 import com.fleamarket.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -21,6 +22,7 @@ import java.util.UUID;
 public class ItemService {
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;
+
     public ItemDto saveImage(ItemDto itemDto, MultipartFile file, String username) throws IOException {
         FileDto fileDto = createFile(file);
         com.fleamarket.demo.model.Eembbed.File saveFile =
@@ -37,24 +39,35 @@ public class ItemService {
     }
 
     private FileDto createFile(MultipartFile file) throws IOException {
-        FileDto fileDto = null;
-        try {
-            String orignName = file.getOriginalFilename();
-            String originalFileExtension = FilenameUtils.getExtension(orignName);
-            String fileName =
-                    UUID.randomUUID()
-                            .toString()
-                            .replaceAll("-", "") +"."+originalFileExtension;
-            String fileUrl = "C:\\Users\\jjucc\\문서\\";
-            File saveFile = new File(fileUrl + orignName);
-            saveFile.getParentFile().mkdir();
-            file.transferTo(saveFile);
-            fileDto = new FileDto(fileUrl, orignName, fileName);
-            return fileDto;
-        } catch (Exception exception) {
-            throw new RuntimeException(" 파일을 저장할 수 없습니다");
-        }finally {
-            return fileDto;
+        String orignName = file.getOriginalFilename();
+        String originalFileExtension = FilenameUtils.getExtension(orignName);
+        String fileName =
+                UUID.randomUUID()
+                        .toString()
+                        .replaceAll("-", "") + "." + originalFileExtension;
+        String fileUrl = "C:\\Users\\jjucc\\바탕 화면\\practice\\flea-marketBE\\src\\main\\resources\\";
+        File saveFile = new File(fileUrl + orignName);
+        saveFile.getParentFile().mkdir();
+        file.transferTo(saveFile);
+        fileUrl = fileUrl.substring("C:".length());
+        return new FileDto(fileUrl, orignName, fileName);
+
+    }
+
+    public Resource showImage(String username) throws IOException {
+        Item item = itemRepository.findByUser_Username(username).orElseThrow(
+                () -> new IllegalArgumentException("상품을 찾을 수 없습니다.")
+        );
+        com.fleamarket.demo.model.Eembbed.File file = item.getFile();
+        if (file == null) {
+            throw new IllegalArgumentException("이미지를 찾을 수 없습니다.");
         }
+        //        String encodedUploadFileName = UriUtils.encode(file.getOrignName(), StandardCharsets.UTF_8);
+        System.out.println("file:"+ file.getFileUrl() + file.getOrignName());
+        Resource urlResource = new UrlResource("file:"+ file.getFileUrl() + file.getOrignName());
+        if (urlResource == null) {
+            throw new RuntimeException("이미지를 찾을 수 없습니다");
+        }
+        return urlResource;
     }
 }
