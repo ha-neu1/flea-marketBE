@@ -33,22 +33,28 @@ public class ItemService {
         item.setRelationUser(user);
 
         itemRepository.save(item);
-
         return itemDto;
     }
 
     private FileDto createFile(MultipartFile file) throws IOException {
-        String  orignName = file.getOriginalFilename();
-        String originalFileExtension = FilenameUtils.getExtension(orignName);
-        String fileName =
-                UUID.randomUUID()
-                        .toString()
-                        .replaceAll("-", "") + originalFileExtension;
-        String fileUrl = "C:\\Users\\jjucc\\문서";
-        File saveFile = new File(fileUrl + fileName);
-        saveFile.getParentFile().mkdir();
-        file.transferTo(saveFile);
-        FileDto fileDto = new FileDto(fileUrl, orignName, fileName);
-        return fileDto;
+        FileDto fileDto = null;
+        try {
+            String orignName = file.getOriginalFilename();
+            String originalFileExtension = FilenameUtils.getExtension(orignName);
+            String fileName =
+                    UUID.randomUUID()
+                            .toString()
+                            .replaceAll("-", "") +"."+originalFileExtension;
+            String fileUrl = "C:\\Users\\jjucc\\문서\\";
+            File saveFile = new File(fileUrl + orignName);
+            saveFile.getParentFile().mkdir();
+            file.transferTo(saveFile);
+            fileDto = new FileDto(fileUrl, orignName, fileName);
+            return fileDto;
+        } catch (Exception exception) {
+            throw new RuntimeException(" 파일을 저장할 수 없습니다");
+        }finally {
+            return fileDto;
+        }
     }
 }

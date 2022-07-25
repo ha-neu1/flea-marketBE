@@ -32,11 +32,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+//    @Override
+//    public void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/**")
+//                .exposedHeaders("X-AUTH-TOKEN")
+//                .allowCredentials(true)
+//                .allowedOrigins("http://localhost:3000");
+//    }
+
     public void configure(WebSecurity web) {
         web
                 .ignoring()
-                .antMatchers("/h2-console/**")
-                .antMatchers("/**");
+                .antMatchers("/h2-console/**");
     }
 
     protected void configure(HttpSecurity http) throws Exception {
@@ -50,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 //요청을 오직 유저가 해야함
-//                .antMatchers("/api/comment/**").authenticated()
+                .antMatchers("/item/update").authenticated()
                 // /about 요청에 대해서는 로그인을 요구함
 //                .antMatchers("/api/comment/**").authenticated()
                 // /admin 요청에 대해서는 ROLE_ADMIN 역할을 가지고 있어야 함
@@ -63,6 +70,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 로그아웃 요청 처리 URL
                 .logoutUrl("/user/logout")
                 .permitAll();
+
+
+
     }
     public WebSecurityConfig(JwtTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;

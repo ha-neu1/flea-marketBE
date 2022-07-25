@@ -23,10 +23,10 @@ public class JwtTokenProvider {
     private static final long TOKEN_VALID_TIME = 300000L;
     private final UserDetailsService userDetailsService;
 
-    @PostConstruct
-    protected void init() {
-        this.secretKey = Base64.getEncoder().encodeToString(this.secretKey.getBytes());
-    }
+//    @PostConstruct
+//    protected void init() {
+//        this.secretKey = Base64.getEncoder().encodeToString(this.secretKey.getBytes());
+//    }
 
     public String createToken(String userPk) {
         Claims claims = Jwts.claims().setSubject(userPk);
@@ -44,6 +44,9 @@ public class JwtTokenProvider {
     }
 
     public String resolveToken(HttpServletRequest request) {
+        if (request.getHeader("Authorization") != null && request.getHeader("Authorization").startsWith("Bearer ")) {
+            return request.getHeader("Authorization").substring("Bearer ".length());
+        }
         return request.getHeader("Authorization");
     }
 

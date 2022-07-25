@@ -21,14 +21,9 @@ public class ItemController {
     @ResponseBody
     @PostMapping("/item/update")
     public String saveItem(
-            @RequestParam(value = "item_detail") String itemDetail,
-            @RequestParam(value = "item_price") int itemPrice,
-            @RequestParam(value = "item_name") String itemName,
-            @RequestParam(value = "image") MultipartFile multipartFile,
+            @ModelAttribute ItemDto itemDto,
             @AuthenticationPrincipal UserDetailsImpl userDetails) throws IOException {
-        ItemDto itemDto = new ItemDto(itemName, itemPrice, itemDetail);
-        ItemDto dto = itemService.saveImage(itemDto, multipartFile, userDetails.getUsername());
-
+        ItemDto dto = itemService.saveImage(itemDto, itemDto.getImage(), userDetails.getUsername());
         return "아이템 저장이 성공했습니다.";
     }
 }
