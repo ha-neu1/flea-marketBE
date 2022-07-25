@@ -17,6 +17,9 @@ public class Comment {
     @Column(nullable = false)
     private String comment;
 
+    @Column(nullable = false)
+    private String nickname;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
     private Item item;
