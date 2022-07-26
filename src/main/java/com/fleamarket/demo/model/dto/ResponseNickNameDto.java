@@ -7,9 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ResultResponseDto {
-    private boolean result;
-
+public class ResponseNickNameDto {
+    public String nickName;
 }
-
-

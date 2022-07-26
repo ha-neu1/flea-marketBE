@@ -4,34 +4,36 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.fleamarket.demo.model.Comment;
 import com.fleamarket.demo.model.Item;
 import com.fleamarket.demo.model.User;
+import com.fleamarket.demo.model.dto.CommentResponseDto;
 import com.fleamarket.demo.model.dto.FileDto;
 import com.fleamarket.demo.model.dto.ItemDto;
+import com.fleamarket.demo.repository.CommentRepository;
 import com.fleamarket.demo.repository.ItemRepository;
 import com.fleamarket.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class ItemService {
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;
     private final AmazonS3Client amazonS3Client;
 
-    private String S3Bucket = "flea-bucket";// Bucket 이름
+    private final CommentRepository commentRepository;
+
+    private String S3Bucket = "test-bucket-hong"; // Bucket 이름
 
     public ItemDto saveImage(ItemDto itemDto, MultipartFile file, String username) throws IOException {
         FileDto fileDto = createFile(file);
@@ -71,20 +73,12 @@ public class ItemService {
         return new FileDto(fileUrl, originalName, fileName);
     }
 
-    public Resource showImage(String username) throws IOException {
-        Item item = itemRepository.findByUser_Username(username).orElseThrow(
-                () -> new IllegalArgumentException("상품을 찾을 수 없습니다.")
+    public CommentResponseDto showItems(Long itemId) {
+        Item item = itemRepository.findById(itemId).orElseThrow(
+                () -> new IllegalArgumentException("아이템이 존재하지 않습니다.")
+
         );
-        com.fleamarket.demo.model.Eembbed.File file = item.getFile();
-        if (file == null) {
-            throw new IllegalArgumentException("이미지를 찾을 수 없습니다.");
-        }
-        //        String encodedUploadFileName = UriUtils.encode(file.getOrignName(), StandardCharsets.UTF_8);
-        System.out.println("file:"+ file.getFileUrl() + file.getOrignName());
-        Resource urlResource = new UrlResource("file:"+ file.getFileUrl() + file.getOrignName());
-        if (urlResource == null) {
-            throw new RuntimeException("이미지를 찾을 수 없습니다");
-        }
-        return urlResource;
+        List<Comment> allByItemId = commentRepository.findAllByItemId(itemId);
+        return new CommentResponseDto(item, allByItemId);
     }
 }

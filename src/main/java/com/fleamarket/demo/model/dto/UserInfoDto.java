@@ -1,17 +1,20 @@
 package com.fleamarket.demo.model.dto;
 
+import java.util.List;
+
 import com.fleamarket.demo.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
 
 @Getter
 @Setter
-public class UserInfoDto {
+@NoArgsConstructor
+@AllArgsConstructor
 
+public class UserInfoDto {
     public String username;
     public String nickname;
     public String city;
@@ -23,4 +26,5 @@ public class UserInfoDto {
         this.city = user.getCity();
         this.items = items;
     }
+
 }
