@@ -75,27 +75,12 @@ public class ItemService {
         return new FileDto(fileUrl, originalName, fileName);
     }
 
-    public Resource showImage(String username) throws IOException {
-        Item item = itemRepository.findByUser_Username(username).orElseThrow(
-                () -> new IllegalArgumentException("상품을 찾을 수 없습니다.")
-        );
-        com.fleamarket.demo.model.Eembbed.File file = item.getFile();
-        if (file == null) {
-            throw new IllegalArgumentException("이미지를 찾을 수 없습니다.");
-        }
-        //        String encodedUploadFileName = UriUtils.encode(file.getOrignName(), StandardCharsets.UTF_8);
-        Resource urlResource = new UrlResource("file:"+ file.getFileUrl() + file.getOrignName());
-        if (urlResource == null) {
-            throw new RuntimeException("이미지를 찾을 수 없습니다");
-        }
-        return urlResource;
-    }
+    public CommentResponseDto showItems(Long itemId) {
+        Item item = itemRepository.findById(itemId).orElseThrow(
+                () -> new IllegalArgumentException("아이템이 존재하지 않습니다.")
 
-//    public CommentResponseDto showItems(Long itemId) {
-//        Item item = itemRepository.findById(itemId).orElseThrow(
-//                () -> new IllegalArgumentException("아이템이 존재하지 않습니다.")
-//
-//        );
-//        List<Comment> allByItemId = commentRepository.findAllByItemId(itemId);
-//    }
+        );
+        List<Comment> allByItemId = commentRepository.findAllByItemId(itemId);
+        return new CommentResponseDto(item, allByItemId);
+    }
 }

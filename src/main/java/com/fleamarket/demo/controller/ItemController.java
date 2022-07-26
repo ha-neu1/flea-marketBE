@@ -29,15 +29,10 @@ public class ItemController {
         return "아이템 저장이 성공했습니다.";
     }
 
-    @GetMapping(value = "/item/show/image", produces = MediaType.IMAGE_JPEG_VALUE)
-    public  ResponseEntity<Resource> showImage(@AuthenticationPrincipal UserDetailsImpl userDetails) throws IOException {
-        return ResponseEntity.ok().body(itemService.showImage(userDetails.getUsername()));
+    @GetMapping("/item/{itemId}")
+    public ResponseEntity<CommentResponseDto> showItems(@PathVariable("itemId") Long itemId) {
+        CommentResponseDto response = itemService.showItems(itemId);
+        return ResponseEntity.ok().body(response);
     }
-
-//    @GetMapping("/item/{itemId}")
-//    public ResponseEntity<CommentResponseDto> showItems(@PathVariable("itemId") Long itemId) {
-//        CommentResponseDto response = itemService.showItems(itemId);
-//        return ResponseEntity.ok().body(response);
-//    }
 
 }

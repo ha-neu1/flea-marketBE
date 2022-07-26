@@ -1,5 +1,6 @@
 package com.fleamarket.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fleamarket.demo.model.dto.CommentDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,12 +15,14 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     @Column(nullable = false)
     private String comment;
 
     @Column(nullable = false)
     private String nickname;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
     private Item item;

@@ -17,15 +17,15 @@ import java.util.List;
 public class CommentResponseDto {
     public List<Comment> comments;
     public String itemName;
-    public Resource image;
+    public String image;
     public int itemPrice;
     public String itemDetail;
 
-    public CommentResponseDto(Item item, List<Comment> comments, Resource image) {
+    public CommentResponseDto(Item item, List<Comment> comments) {
         this.itemName = item.getItemName();
         this.itemDetail = item.getItemDetail();
         this.itemPrice = item.getItemPrice();
         this.comments = comments;
-        this.image = image;
+        this.image = item.getFile().getFileUrl();
     }
 }

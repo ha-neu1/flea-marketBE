@@ -1,5 +1,6 @@
 package com.fleamarket.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fleamarket.demo.model.Eembbed.File;
 import com.fleamarket.demo.model.dto.ItemDto;
 import lombok.Getter;
@@ -30,11 +31,12 @@ public class Item {
 
     @Embedded
     private File file;
-
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "users_id")
     private User user;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "item")
     private List<Comment> comments = new ArrayList<>();
 
