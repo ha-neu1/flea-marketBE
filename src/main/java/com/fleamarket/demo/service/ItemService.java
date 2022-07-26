@@ -33,7 +33,7 @@ public class ItemService {
 
     private final CommentRepository commentRepository;
 
-    private String S3Bucket = "test-bucket-hong"; // Bucket 이름
+    private String S3Bucket = "flea-market"; // Bucket 이름
 
     public ItemDto saveImage(ItemDto itemDto, MultipartFile file, String username) throws IOException {
         FileDto fileDto = createFile(file);
