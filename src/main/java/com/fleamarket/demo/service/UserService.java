@@ -3,20 +3,22 @@ package com.fleamarket.demo.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fleamarket.demo.model.Item;
 import com.fleamarket.demo.model.User;
-import com.fleamarket.demo.model.dto.LoginRequestDto;
-import com.fleamarket.demo.model.dto.ResultResponseDto;
-import com.fleamarket.demo.model.dto.UserDto;
 import com.fleamarket.demo.repository.UserRepository;
 import com.fleamarket.demo.security.UserDetailsImpl;
+import com.fleamarket.demo.model.dto.LoginRequestDto;
+import com.fleamarket.demo.model.dto.ResponseItemDto;
+import com.fleamarket.demo.model.dto.UserDto;
+import com.fleamarket.demo.model.dto.UserInfoDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -71,11 +73,29 @@ public class UserService {
     }
 
 
-    public UserDto myinfo(UserDetailsImpl userDetails) {
-        String username = userDetails.getUsername();
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("내 정보가 없습니다."));
-        return new UserDto(user.getUsername(), user.getPw(), user.getNickname(), user.getCity());
+    public UserInfoDto myPost(UserDetailsImpl userDetails) {
+        // userDetails 에서 user을 가져온다
+        User user = userDetails.getUser();
+
+        //user에서 ItemList를 뽑아온다.
+        List<Item> itemList = user.getItemList();
+
+        //ResponseItemDto를 담기 위한 리스트를 준비한다.
+        List<ResponseItemDto> items = new ArrayList<>();
+
+        //for 문을 통해서 아이템에 접근
+        for (Item item : itemList) {
+            // 뽑아서 어떤 객체나 Dto 에 저장
+            ResponseItemDto itemDto = new ResponseItemDto(item);
+            //만든 Dto를 List에 저장한다.
+            items.add(itemDto);
+        }
+
+        // 요구한 정보를  UserInfoDto 입력
+        UserInfoDto dto = new UserInfoDto(user, items);
+
+        //UserDto를 반환
+        return dto;
     }
 
     public Boolean login(LoginRequestDto loginRequestDto){
