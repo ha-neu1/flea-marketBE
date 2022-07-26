@@ -51,6 +51,12 @@ public class UserController {
         return ResponseEntity.ok().body(userService.myinfo(userDetails));
     }
 
+    //작성한 게시글 조회
+    @GetMapping("/user/info")
+    public ResponseEntity<UserInfoDto> myPost(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return ResponseEntity.ok().body(userService.myPost(userDetails));
+    }
+
     //로그인
     @PostMapping("/user/login")
     public String login(@RequestBody LoginRequestDto loginRequestDto,

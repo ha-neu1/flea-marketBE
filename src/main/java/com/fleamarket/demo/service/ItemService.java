@@ -34,7 +34,7 @@ public class ItemService {
 
     private  final AmazonS3Client amazonS3Client;
 
-    private String S3Bucket = "test-bucket-hong"; // Bucket 이름
+    private String S3Bucket = "test-bucket-hanghae"; // Bucket 이름
 
 
     public ItemDto saveImage(ItemDto itemDto, MultipartFile file, String username) throws IOException {
@@ -73,10 +73,6 @@ public class ItemService {
 
         String fileUrl = amazonS3Client.getUrl(S3Bucket, originalName).toString();
         return new FileDto(fileUrl, originalName, fileName);
-    }
-
-    public Resource showImage() throws IOException {
-        return showImage(null);
     }
 
     public Resource showImage(String username) throws IOException {
