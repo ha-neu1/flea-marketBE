@@ -46,9 +46,15 @@ public class UserController {
     }
 
     //회원 정보 조회
+//    @GetMapping("/user/info")
+//    public ResponseEntity<UserDto> myinfo(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+//        return ResponseEntity.ok().body(userService.myinfo(userDetails));
+//    }
+
+    //작성한 게시글 조회
     @GetMapping("/user/info")
-    public ResponseEntity<UserDto> myinfo(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return ResponseEntity.ok().body(userService.myinfo(userDetails));
+    public ResponseEntity<UserInfoDto> myPost(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return ResponseEntity.ok().body(userService.myPost(userDetails));
     }
 
     //로그인
