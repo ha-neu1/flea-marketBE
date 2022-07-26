@@ -1,6 +1,9 @@
 package com.fleamarket.demo.service;
 
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.fleamarket.demo.model.Item;
 import com.fleamarket.demo.model.User;
 import com.fleamarket.demo.model.dto.FileDto;
@@ -44,19 +47,26 @@ public class ItemService {
     }
 
     private FileDto createFile(MultipartFile file) throws IOException {
-        String orignName = file.getOriginalFilename();
-        String originalFileExtension = FilenameUtils.getExtension(orignName);
+        String originalName = file.getOriginalFilename();
+        long size = file.getSize();
+        String originalFileExtension = FilenameUtils.getExtension(originalName);
+
+        ObjectMetadata objectMetaData = new ObjectMetadata();
+        objectMetaData.setContentType(file.getContentType());
+        objectMetaData.setContentLength(size);
+
+        amazonS3Client.putObject(
+                new PutObjectRequest(S3Bucket, originalName, file.getInputStream(), objectMetaData)
+                        .withCannedAcl(CannedAccessControlList.PublicRead)
+        );
+
         String fileName =
                 UUID.randomUUID()
                         .toString()
                         .replaceAll("-", "") + "." + originalFileExtension;
-        String fileUrl = "C:\\Users\\jjucc\\바탕 화면\\practice\\flea-marketBE\\src\\main\\resources\\";
-        File saveFile = new File(fileUrl + orignName);
-        saveFile.getParentFile().mkdir();
-        file.transferTo(saveFile);
-        fileUrl = fileUrl.substring("C:".length());
-        return new FileDto(fileUrl, orignName, fileName);
 
+        String fileUrl = amazonS3Client.getUrl(S3Bucket, originalName).toString();
+        return new FileDto(fileUrl, originalName, fileName);
     }
 
     public Resource showImage(String username) throws IOException {
