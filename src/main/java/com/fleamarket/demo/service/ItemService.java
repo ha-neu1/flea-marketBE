@@ -1,5 +1,6 @@
 package com.fleamarket.demo.service;
 
+import com.amazonaws.services.s3.AmazonS3Client;
 import com.fleamarket.demo.model.Item;
 import com.fleamarket.demo.model.User;
 import com.fleamarket.demo.model.dto.FileDto;
@@ -8,6 +9,7 @@ import com.fleamarket.demo.repository.ItemRepository;
 import com.fleamarket.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,9 @@ import java.util.UUID;
 public class ItemService {
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;
+    private final AmazonS3Client amazonS3Client;
+
+    private String S3Bucket = "flea-bucket";// Bucket 이름
 
     public ItemDto saveImage(ItemDto itemDto, MultipartFile file, String username) throws IOException {
         FileDto fileDto = createFile(file);
