@@ -25,7 +25,13 @@ public class Comment {
     private Item item;
 
     public Comment(CommentDto commentDto) {
+        this.nickname = commentDto.getNickname();
         this.comment = commentDto.getComment();
+    }
+
+    public Comment(String comment, String nickname) {
+        this.nickname = nickname;
+        this.comment = comment;
     }
 
     public void setRelationItem(Item item) {
