@@ -59,6 +59,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //요청을 오직 유저가 해야함
                 .antMatchers("/item/update").authenticated()
                 .antMatchers("/item/show/image").authenticated()
+                .antMatchers("/user/info").authenticated()
+                .antMatchers("/comment").authenticated()
                 // /about 요청에 대해서는 로그인을 요구함
 //                .antMatchers("/api/comment/**").authenticated()
                 // /admin 요청에 대해서는 ROLE_ADMIN 역할을 가지고 있어야 함
@@ -71,9 +73,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 로그아웃 요청 처리 URL
                 .logoutUrl("/user/logout")
                 .permitAll();
-
-
-
     }
     public WebSecurityConfig(JwtTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;

@@ -75,8 +75,9 @@ public class UserService {
         String username = userDetails.getUsername();
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("내 정보가 없습니다."));
-        return new UserDto(user.getUsername(), user.getNickname(), user.getPw(), user.getCity());
+        return new UserDto(user.getUsername(), user.getPw(), user.getNickname(), user.getCity());
     }
+
     public Boolean login(LoginRequestDto loginRequestDto){
         User user = userRepository.findByUsername(loginRequestDto.getUsername())
                 .orElse(null);
