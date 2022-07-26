@@ -9,6 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ResultResponseDto {
     private boolean result;
+
 }
 
 

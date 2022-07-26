@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fleamarket.demo.jwt.JwtTokenProvider;
 import com.fleamarket.demo.model.dto.LoginRequestDto;
 import com.fleamarket.demo.model.dto.UserDto;
+import com.fleamarket.demo.model.dto.UserInfoDto;
 import com.fleamarket.demo.security.UserDetailsImpl;
 import com.fleamarket.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
