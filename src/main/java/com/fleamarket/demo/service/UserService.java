@@ -3,10 +3,13 @@ package com.fleamarket.demo.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fleamarket.demo.model.Item;
 import com.fleamarket.demo.model.User;
 import com.fleamarket.demo.model.dto.LoginRequestDto;
 import com.fleamarket.demo.model.dto.ResultResponseDto;
 import com.fleamarket.demo.model.dto.UserDto;
+import com.fleamarket.demo.model.dto.UserInfoDto;
+import com.fleamarket.demo.repository.ItemRepository;
 import com.fleamarket.demo.repository.UserRepository;
 import com.fleamarket.demo.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +19,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -70,12 +75,20 @@ public class UserService {
         return (HashMap<String, String>) mapper.readValue(nickname, Map.class);
     }
 
-
     public UserDto myinfo(UserDetailsImpl userDetails) {
         String username = userDetails.getUsername();
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("내 정보가 없습니다."));
         return new UserDto(user.getUsername(), user.getPw(), user.getNickname(), user.getCity());
+    }
+
+    public UserInfoDto myPost(UserDetailsImpl userDetails) {
+        List<Item> itemList =
+        List<UserInfoDto> userInfoDtoList = new ArrayList<>();
+
+        for(){
+            UserInfoDto userInfoDto
+        }
     }
 
     public Boolean login(LoginRequestDto loginRequestDto){
