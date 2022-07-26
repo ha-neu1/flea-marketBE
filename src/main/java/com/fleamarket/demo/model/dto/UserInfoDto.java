@@ -1,6 +1,11 @@
 package com.fleamarket.demo.model.dto;
 
 
+import com.fleamarket.demo.model.Item;
+
+import java.util.List;
+
+
 
 import com.fleamarket.demo.model.Item;
 import lombok.AllArgsConstructor;
@@ -16,20 +21,15 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 
-import com.fleamarket.demo.model.Item;
-
-import java.util.List;
-
-
 public class UserInfoDto {
     public String username;
     public String pw;
     public String nickname;
     public String city;
 
+    public List<Item> itemList;
+
     public List<Item> itemLists;
 
-
-    public List<Item> itemList;
 
 }
