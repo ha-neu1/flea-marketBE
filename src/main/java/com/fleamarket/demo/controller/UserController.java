@@ -4,6 +4,7 @@ package com.fleamarket.demo.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fleamarket.demo.jwt.JwtTokenProvider;
 import com.fleamarket.demo.model.dto.LoginRequestDto;
+import com.fleamarket.demo.model.dto.PostResponse;
 import com.fleamarket.demo.model.dto.UserDto;
 import com.fleamarket.demo.security.UserDetailsImpl;
 import com.fleamarket.demo.service.UserService;
@@ -48,6 +49,12 @@ public class UserController {
     @GetMapping("/user/info")
     public ResponseEntity<UserDto> myinfo(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         return ResponseEntity.ok().body(userService.myinfo(userDetails));
+    }
+
+    //작성한 게시글 조회
+    @GetMapping("/user/info")
+    public ResponseEntity<PostResponse> myPost(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return ResponseEntity.ok(userService.myPost(userDetails));
     }
 
     //로그인
