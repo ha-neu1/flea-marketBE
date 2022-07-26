@@ -57,6 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 //요청을 오직 유저가 해야함
+                .antMatchers("/main/nickname").authenticated()
                 .antMatchers("/item/update").authenticated()
                 .antMatchers("/item/show/image").authenticated()
                 .antMatchers("/user/info").authenticated()

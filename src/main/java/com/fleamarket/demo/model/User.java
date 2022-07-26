@@ -1,5 +1,6 @@
 package com.fleamarket.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fleamarket.demo.model.dto.UserDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,8 +27,11 @@ public class User {
     private String nickname;
     @Column(nullable = false)
     private String city;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Item> itemList = new ArrayList<>();
+
     public User(UserDto userDto) {
         this.username = userDto.getUsername();
         this.pw = userDto.getPw();
