@@ -31,6 +31,7 @@ public class User {
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Item> itemList = new ArrayList<>();
+
     public User(UserDto userDto) {
         this.username = userDto.getUsername();
         this.pw = userDto.getPw();

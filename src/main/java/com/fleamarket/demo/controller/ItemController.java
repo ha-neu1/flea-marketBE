@@ -6,11 +6,8 @@ import com.fleamarket.demo.model.dto.ItemDto;
 import com.fleamarket.demo.security.UserDetailsImpl;
 import com.fleamarket.demo.service.ItemService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.Resource;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
