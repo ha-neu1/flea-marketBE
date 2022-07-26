@@ -26,7 +26,7 @@ public class User {
     private String nickname;
     @Column(nullable = false)
     private String city;
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user")
     private List<Item> itemList = new ArrayList<>();
     public User(UserDto userDto) {
         this.username = userDto.getUsername();

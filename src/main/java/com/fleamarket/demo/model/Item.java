@@ -35,7 +35,7 @@ public class Item {
     @JoinColumn(name = "users_id")
     private User user;
 
-    @OneToMany(mappedBy = "item", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "item")
     private List<Comment> comments = new ArrayList<>();
 
     public Item(ItemDto itemDto) {
