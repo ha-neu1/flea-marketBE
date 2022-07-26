@@ -39,5 +39,4 @@ gradle/wrapper/gradle-wrapper.jar
 gradle/wrapper/gradle-wrapper.properties
 
 src/main/resources/application.properties
-src/main/resources/application.properties
 *.properties
