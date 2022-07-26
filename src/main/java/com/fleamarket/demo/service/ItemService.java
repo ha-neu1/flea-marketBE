@@ -5,7 +5,6 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.fleamarket.demo.model.Comment;
-import com.fleamarket.demo.model.Eembbed.File;
 import com.fleamarket.demo.model.Item;
 import com.fleamarket.demo.model.User;
 import com.fleamarket.demo.model.dto.CommentResponseDto;
@@ -30,17 +29,16 @@ import java.util.UUID;
 public class ItemService {
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;
+    private final AmazonS3Client amazonS3Client;
+
     private final CommentRepository commentRepository;
 
-    private  final AmazonS3Client amazonS3Client;
-
-    private String S3Bucket = "test-bucket-hanghae"; // Bucket 이름
-
+    private String S3Bucket = "test-bucket-hong"; // Bucket 이름
 
     public ItemDto saveImage(ItemDto itemDto, MultipartFile file, String username) throws IOException {
         FileDto fileDto = createFile(file);
-        File saveFile =
-                new File(fileDto);
+        com.fleamarket.demo.model.Eembbed.File saveFile =
+                new com.fleamarket.demo.model.Eembbed.File(fileDto);
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("로그인을 해주시길 바랍니다"));
 
@@ -75,7 +73,6 @@ public class ItemService {
         return new FileDto(fileUrl, originalName, fileName);
     }
 
-
     public CommentResponseDto showItems(Long itemId) {
         Item item = itemRepository.findById(itemId).orElseThrow(
                 () -> new IllegalArgumentException("아이템이 존재하지 않습니다.")
@@ -84,12 +81,4 @@ public class ItemService {
         List<Comment> allByItemId = commentRepository.findAllByItemId(itemId);
         return new CommentResponseDto(item, allByItemId);
     }
-
-//    public CommentResponseDto showItems(Long itemId) {
-//        Item item = itemRepository.findById(itemId).orElseThrow(
-//                () -> new IllegalArgumentException("아이템이 존재하지 않습니다.")
-//
-//        );
-//        List<Comment> allByItemId = commentRepository.findAllByItemId(itemId);
-//    }
 }
