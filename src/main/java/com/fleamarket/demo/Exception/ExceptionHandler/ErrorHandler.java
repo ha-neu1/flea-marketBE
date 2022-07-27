@@ -24,4 +24,9 @@ public class ErrorHandler {
     protected ResponseEntity<String> handleException(Exception e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+    @ExceptionHandler(NullPointerException.class)
+    protected ResponseEntity<String> handleException(NullPointerException e) {
+        return new ResponseEntity<>("로그인을 하셨는 지 확인해주세요", HttpStatus.FORBIDDEN);
+    }
+
 }
