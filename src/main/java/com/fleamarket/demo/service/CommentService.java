@@ -24,7 +24,6 @@ public class CommentService {
         Comment comment = new Comment(commentDto.getComment(), user.getNickname());
         comment.setRelationItem(item);
         commentRepository.save(comment);
-
         return new CommentDto(comment);
     }
 }

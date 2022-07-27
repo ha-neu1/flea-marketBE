@@ -48,7 +48,7 @@ public class UserService {
             throw new IllegalArgumentException("nickname 조건이 맞지 않습니다.");
         }
 
-        UserDto user = new UserDto(username,nickname,city,enPassord);
+        UserDto user = new UserDto(username,enPassord,nickname,city);
         User user1 =new User(user);
         userRepository.save(user1);
 

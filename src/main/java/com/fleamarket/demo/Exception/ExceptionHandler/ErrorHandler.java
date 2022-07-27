@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ErrorHandler {
     @ExceptionHandler(MainItemException.class)
     protected ResponseEntity<String> handleMainItemException(MainItemException e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
     @ExceptionHandler(IllegalArgumentException.class)
     protected ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException e) {
@@ -19,5 +19,13 @@ public class ErrorHandler {
     @ExceptionHandler(RuntimeException.class)
     protected ResponseEntity<String> handleRuntimeException(RuntimeException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(Exception.class)
+    protected ResponseEntity<String> handleException(Exception e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    @ExceptionHandler(NullPointerException.class)
+    protected ResponseEntity<String> handleException(NullPointerException e) {
+        return new ResponseEntity<>("로그인을 하셨는 지 확인해주세요", HttpStatus.FORBIDDEN);
     }
 }
