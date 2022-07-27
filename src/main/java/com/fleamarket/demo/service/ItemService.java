@@ -15,12 +15,11 @@ import com.fleamarket.demo.repository.ItemRepository;
 import com.fleamarket.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,10 +32,13 @@ public class ItemService {
 
     private final CommentRepository commentRepository;
 
-    private String S3Bucket = "flea-market"; // Bucket 이름
-
+    private String S3Bucket = "test-bucket-hanghae"; // Bucket 이름
 
     public ItemDto saveImage(ItemDto itemDto, MultipartFile file, String username) throws IOException {
+        boolean present = itemRepository.findByItemNameAndUser_Username(itemDto.getItemName(), username).isPresent();
+        if (present) {
+            throw new RemoteException("이미 같은 아이템이 존재합니다");
+        }
         FileDto fileDto = createFile(file);
         com.fleamarket.demo.model.Eembbed.File saveFile =
                 new com.fleamarket.demo.model.Eembbed.File(fileDto);

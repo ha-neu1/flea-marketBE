@@ -16,13 +16,12 @@ public class ErrorHandler {
     protected ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
-    @ExceptionHandler(RuntimeException.class)
-    protected ResponseEntity<String> handleRuntimeException(RuntimeException e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-    }
-
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<String> handleException(Exception e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    @ExceptionHandler(NullPointerException.class)
+    protected ResponseEntity<String> handleException(NullPointerException e) {
+        return new ResponseEntity<>("로그인을 하셨는지 확인해 주세요", HttpStatus.FORBIDDEN);
     }
 }
