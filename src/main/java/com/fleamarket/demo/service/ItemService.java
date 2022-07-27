@@ -32,7 +32,7 @@ public class ItemService {
     private final AmazonS3Client amazonS3Client;
 
     private final CommentRepository commentRepository;
-    
+
     private String S3Bucket = "flea-market"; // Bucket 이름
 
 
