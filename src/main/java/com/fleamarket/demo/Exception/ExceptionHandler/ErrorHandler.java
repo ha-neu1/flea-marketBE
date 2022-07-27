@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ErrorHandler {
     @ExceptionHandler(MainItemException.class)
     protected ResponseEntity<String> handleMainItemException(MainItemException e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
     @ExceptionHandler(IllegalArgumentException.class)
     protected ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException e) {
