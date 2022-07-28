@@ -31,6 +31,7 @@ public class MainService {
                     mainItems.add(mainResponseDto);
                 }
             }
+
         } catch (Exception e) {
             throw new MainItemException("아이템을 찾아올 수 없습니다.");
         }
